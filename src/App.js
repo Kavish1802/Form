@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import YogaAdmissionForm from './components/YogaAdmissionForm.js'
+import Payments from './components/Payments.js'
+import {  BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    batch: '6-7AM', // Default batch
+  });
+  const [selectedMembership, setSelectedMembership] = useState('1-month');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Router>
+      <Routes>
+      <Route path="/" exact element={<YogaAdmissionForm formData={formData} setFormData={setFormData} selectedMembership={selectedMembership} setSelectedMembership={setSelectedMembership}/>} />
+          <Route path="/payments" element={<Payments formData={formData} selectedMembership={selectedMembership} setSelectedMembership={setSelectedMembership}/>} /> 
+        </Routes>
+    </Router>
+    </>
   );
 }
 
